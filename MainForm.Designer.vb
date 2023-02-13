@@ -38,7 +38,7 @@ Partial Class MainForm
         Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Task_DetailDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PriorityDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.StatusDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.StatusDataGridViewComboBoxColumn = New System.Windows.Forms.DataGridViewComboBoxColumn()
         Me.btnDelete = New System.Windows.Forms.DataGridViewButtonColumn()
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ToDoListBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -50,7 +50,7 @@ Partial Class MainForm
         Me.DataGridView.AllowUserToAddRows = False
         Me.DataGridView.AutoGenerateColumns = False
         Me.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.Task_DetailDataGridViewTextBoxColumn, Me.PriorityDataGridViewTextBoxColumn, Me.StatusDataGridViewTextBoxColumn, Me.btnDelete})
+        Me.DataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.Task_DetailDataGridViewTextBoxColumn, Me.PriorityDataGridViewTextBoxColumn, Me.StatusDataGridViewComboBoxColumn, Me.btnDelete})
         Me.DataGridView.DataSource = Me.ToDoListBindingSource
         Me.DataGridView.Location = New System.Drawing.Point(26, 40)
         Me.DataGridView.Name = "DataGridView"
@@ -170,14 +170,15 @@ Partial Class MainForm
         Me.PriorityDataGridViewTextBoxColumn.Name = "PriorityDataGridViewTextBoxColumn"
         Me.PriorityDataGridViewTextBoxColumn.Width = 50
         '
-        'StatusDataGridViewTextBoxColumn
+        'StatusDataGridViewComboBoxColumn
         '
-        Me.StatusDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.StatusDataGridViewTextBoxColumn.DataPropertyName = "Status"
-        Me.StatusDataGridViewTextBoxColumn.HeaderText = "Status"
-        Me.StatusDataGridViewTextBoxColumn.MaxInputLength = 10
-        Me.StatusDataGridViewTextBoxColumn.Name = "StatusDataGridViewTextBoxColumn"
-        Me.StatusDataGridViewTextBoxColumn.Width = 70
+        Me.StatusDataGridViewComboBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.StatusDataGridViewComboBoxColumn.DataPropertyName = "Status"
+        Me.StatusDataGridViewComboBoxColumn.HeaderText = "Status"
+        Me.StatusDataGridViewComboBoxColumn.Name = "StatusDataGridViewComboBoxColumn"
+        Me.StatusDataGridViewComboBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.StatusDataGridViewComboBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.StatusDataGridViewComboBoxColumn.Width = 90
         '
         'btnDelete
         '
@@ -228,6 +229,6 @@ Partial Class MainForm
     Friend WithEvents Id As DataGridViewTextBoxColumn
     Friend WithEvents Task_DetailDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents PriorityDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents StatusDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents StatusDataGridViewComboBoxColumn As DataGridViewComboBoxColumn
     Friend WithEvents btnDelete As DataGridViewButtonColumn
 End Class

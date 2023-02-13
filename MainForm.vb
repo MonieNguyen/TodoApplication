@@ -2,6 +2,9 @@
 
 Public Class MainForm
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim StatusSource As String() = New String() {"New", "Doing", "Completed", "Pending"}
+        Me.StatusDataGridViewComboBoxColumn.DataSource = StatusSource
+
         'TODO: This line of code loads data into the 'TodoAppDataSet.ToDoList' table. You can move, or remove it, as needed.
         LoadDataGridView()
 
@@ -54,10 +57,14 @@ Public Class MainForm
         End Select
     End Sub
 
-    Private Sub DataGridView_RowDelete(sender As Object, e As DataGridViewCellEventArgs) _
+    Private Sub DataGridView_CellClick(sender As Object, e As DataGridViewCellEventArgs) _
         Handles DataGridView.CellClick
-        'Check if the delete button is selected
-        If e.ColumnIndex = 4 Then
+        'Check if the Status column is clicked
+        If e.ColumnIndex = 3 Then
+
+
+            'Check if the Action colum is clicked
+        ElseIf e.ColumnIndex = 4 Then
 
             'Check if the rowIndex is valid, then show and message box to confirm before deleting
             If e.RowIndex >= 0 And e.RowIndex < DataGridView.Rows.Count Then
