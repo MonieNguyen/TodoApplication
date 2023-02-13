@@ -37,24 +37,26 @@ Public Class MainForm
         Handles DataGridView.CellEndEdit
         'Check if cell is null, prompt error message box
         Dim cellValue = Me.DataGridView.Rows(e.RowIndex).Cells(e.ColumnIndex).Value
-        If IsDBNull(cellValue) Then 'TODO: Handle null or empty value
-            MsgBox("This field cannot be empty." & vbNewLine & "Please enter data", MessageBoxIcon.Error)
+
+        If cellValue.ToString.Trim = "" Then
+            MsgBox("This field cannot be empty.", MessageBoxIcon.Error)
+            LoadDataGridView()
+        Else
+            'Get ID of edited row
+            Dim id = Me.DataGridView.Rows(e.RowIndex).Cells(0).Value
+
+            'Update edited data to DB based on edited column index
+            Select Case e.ColumnIndex
+                Case 1
+                    Me.ToDoListTableAdapter.UpdateTaskDetail(cellValue, id)
+                Case 2
+                    Me.ToDoListTableAdapter.UpdatePriority(cellValue, id)
+                Case 3
+                    Me.ToDoListTableAdapter.UpdateStatus(cellValue, id)
+                Case Else
+                    Debug.WriteLine("Out of editable cell")
+            End Select
         End If
-
-        'Get ID of edited row
-        Dim id = Me.DataGridView.Rows(e.RowIndex).Cells(0).Value
-
-        'Update edited data to DB based on edited column index
-        Select Case e.ColumnIndex
-            Case 1
-                Me.ToDoListTableAdapter.UpdateTaskDetail(cellValue, id)
-            Case 2
-                Me.ToDoListTableAdapter.UpdatePriority(cellValue, id)
-            Case 3
-                Me.ToDoListTableAdapter.UpdateStatus(cellValue, id) 'TODO: convert integer to text
-            Case Else
-                Debug.WriteLine("Out of editable cell")
-        End Select
     End Sub
 
     Private Sub DataGridView_CellClick(sender As Object, e As DataGridViewCellEventArgs) _
@@ -94,4 +96,17 @@ Public Class MainForm
 
         Return Not (String.IsNullOrEmpty(priority) Or priority.Length > 2)
     End Function
+
+    Private Sub DataGridView_DataError(sender As Object, e As DataGridViewDataErrorEventArgs) Handles DataGridView.DataError
+        'Check if event source is Task Detail Column
+        If DataGridView.Columns(e.ColumnIndex).HeaderCell.Value = "Task Detail" Then
+            MsgBox("Task Detail cannot be empty", MessageBoxIcon.Error)
+
+            'Check if event source is Priority Column
+        ElseIf DataGridView.Columns(e.ColumnIndex).HeaderCell.Value = "Priority" Then
+            MsgBox("Priority must be a number and cannot be empty", MessageBoxIcon.Error)
+        End If
+
+        LoadDataGridView()
+    End Sub
 End Class
